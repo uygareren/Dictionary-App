@@ -4,12 +4,15 @@ const word = document.getElementById("word");
 const description = document.getElementById("description");
 const volumeBtn = document.getElementById("volume-btn");
 
+const result = document.getElementsByClassName("result")
+
 const audio = new Audio();
 
 const fetchApi = async (word) => {
   const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
   const data = await response.json();
   return data;
+
 };
 
 searchBtn.addEventListener("click", async () => {
@@ -18,6 +21,7 @@ searchBtn.addEventListener("click", async () => {
 
   try {
     const data = await fetchApi(inputWord);
+    result[0].style.display = "block";
     description.textContent = data[0].meanings[0].definitions[0].definition;
   } catch (error) {
     console.log(error);
